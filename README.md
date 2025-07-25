@@ -4,7 +4,7 @@
 Este projeto foi desenvolvido como parte do processo seletivo para o Banco CDC. A aplicação consiste em um sistema completo de gestão de clientes, com autenticação de usuários, cadastro, listagem, edição e exclusão de registros.
 
 🚀 Tecnologias Utilizadas
-Frontend: React.js
+Frontend: React.js e Tailwind
 
 Backend: PHP com CodeIgniter 4
 
