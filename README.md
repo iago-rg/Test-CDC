@@ -35,7 +35,7 @@ https://linen-seahorse-362403.hostingersite.com
 
 ## 📦 API REST
 
-Todas as rotas da API estão documentadas e disponíveis em uma **coleção do Postman** enviada junto ao projeto.  
+Todas as rotas da API estão disponíveis em uma **coleção do Postman** enviada junto ao projeto.  
 Com isso, é possível testar o backend separadamente utilizando os endpoints hospedados.
 
 ---
