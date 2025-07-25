@@ -70,7 +70,9 @@ export default function CustomerPage() {
   const handleConfirmDelete = async () => {
     if (!customerToDelete) return;
     try {
-      await api.delete(`/customers/delete/${customerToDelete.id}`);
+      await api.delete('/customers/delete',{
+        id: customerToDelete.id
+      });
       toast.success('Cliente deletado com sucesso');
       refetch();
     } catch (error) {
