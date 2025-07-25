@@ -12,7 +12,7 @@ Banco de Dados: MySQL
 
 🌐 Links de Acesso
 🔗 Frontend em produção:
-https://linen-seahorse-362403.hostingersite.com
+https://test-cdc-jdeu.vercel.app
 
 🔗 Backend em produção (API):
 https://linen-seahorse-362403.hostingersite.com
