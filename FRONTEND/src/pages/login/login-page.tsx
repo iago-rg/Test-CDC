@@ -7,6 +7,7 @@ import { useState } from 'react';
 import api from '../../lib/axios';
 import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import logo from '../../assets/images/cdc_card_logo.jpeg';
 
 const loginSchema = z.object({
   email: z.string().email('Email inválido'),
@@ -47,7 +48,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-[#f4f6fb] px-4">
       <div className="w-full max-w-md rounded-xl bg-white shadow-xl p-8">
         <div className="flex justify-center mb-6">
-          <img src="src/assets/images/cdc_card_logo.jpeg" alt="Logo" className="w-16 h-16" />
+          <img src={logo} alt="Logo" className="w-16 h-16" />
         </div>
         <h1 className="text-2xl font-semibold text-center text-gray-900">CDC Bank</h1>
         <p className="text-center text-sm text-gray-500 mb-6">Plataforma bancária digital e segura</p>
