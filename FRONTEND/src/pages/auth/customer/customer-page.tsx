@@ -71,7 +71,10 @@ export default function CustomerPage() {
     if (!customerToDelete) return;
     try {
       await api.delete('/customers/delete',{
-        id: customerToDelete.id
+        data: {
+          id: customerToDelete.id,
+          id_user_ins: idUserIns,
+        },
       });
       toast.success('Cliente deletado com sucesso');
       refetch();
