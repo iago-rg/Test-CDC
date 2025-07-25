@@ -3,7 +3,7 @@
 💼 **Teste Técnico Fullstack – Banco CDC**
 
 Este projeto foi desenvolvido como parte do processo seletivo para o Banco CDC.  
-A aplicação consiste em um sistema completo de gestão de clientes, com autenticação de usuários, cadastro, listagem, edição e exclusão de registros.
+A aplicação consiste em um sistema completo de gestão de clientes, com autenticação de usuários, cadastro, listagem, edição e exclusão.
 
 ---
 
