@@ -178,8 +178,6 @@ export default function CustomerPage() {
 
         {isLoading ? (
           <p>Carregando clientes...</p>
-        ) : error ? (
-          <p className="text-red-500">Erro ao carregar clientes: {(error as Error).message}</p>
         ) : (
           <div className="bg-white rounded-lg shadow overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
