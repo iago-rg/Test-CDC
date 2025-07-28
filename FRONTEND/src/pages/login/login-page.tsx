@@ -44,6 +44,8 @@ export default function LoginPage() {
     }
   };
 
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f4f6fb] px-4">
       <div className="w-full max-w-md rounded-xl bg-white shadow-xl p-8">
@@ -70,12 +72,16 @@ export default function LoginPage() {
             <label className="text-sm font-medium text-gray-700">Senha</label>
             <div className="relative mt-1">
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 placeholder="Insira sua senha"
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0245AE]"
                 {...register('password')}
               />
-              <span className="absolute inset-y-0 right-3 flex items-center text-gray-400">👁️</span>
+              <span
+                className="absolute inset-y-0 right-3 flex items-center text-gray-400 cursor-pointer"
+                onClick={() => setShowPassword(prev => !prev)}>
+                👁️
+              </span>
             </div>
             {errors.password && <p className="text-sm text-red-500 mt-1">{errors.password.message}</p>}
           </div>
