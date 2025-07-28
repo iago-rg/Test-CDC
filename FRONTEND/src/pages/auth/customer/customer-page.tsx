@@ -11,6 +11,7 @@ import { useDebounce } from 'use-debounce';
 import { useAuth } from '../../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { useEffect } from 'react';
 
 const customerSchema = z.object({
   name: z.string().min(1, 'Informe o nome'),
@@ -27,6 +28,8 @@ type Customer = z.infer<typeof customerSchema> & {
 };
 
 export default function CustomerPage() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
   const { logout, idUserIns } = useAuth();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -39,6 +42,11 @@ export default function CustomerPage() {
     logout();
     navigate('/login');
   };
+  
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [debouncedSearch]);
 
   const handleModalSubmit = async (formData: CustomerFormData, id?: string) => {
     try {
@@ -110,6 +118,11 @@ export default function CustomerPage() {
       return response.data.data as Customer[];
     },
   });
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedCustomers = data?.slice(startIndex, endIndex);
+  const totalPages = data ? Math.ceil(data.length / itemsPerPage) : 1;
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -197,7 +210,7 @@ export default function CustomerPage() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {data?.map((customer, idx) => (
+                {paginatedCustomers?.map((customer, idx) => (
                   <tr key={idx}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
@@ -244,9 +257,26 @@ export default function CustomerPage() {
               </tbody>
             </table>
             <div className="p-4 text-sm text-gray-500">
-              Exibindo {data?.length} de {data?.length} clientes
+              Exibindo clientes {startIndex + 1} a {endIndex} de {data?.length} no total
+            </div>
+            <div className="flex justify-between items-center p-4">
+              <Button
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}>
+                Anterior
+              </Button>
+              <span className="text-sm text-gray-600">
+                Página {currentPage} de {totalPages}
+              </span>
+              <Button
+                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages}>
+                Próxima
+              </Button>
             </div>
           </div>
+          
+          
         )}
       </main>
     </div>

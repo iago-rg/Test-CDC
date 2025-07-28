@@ -6,6 +6,7 @@ import api from '../../../lib/axios';
 import { useState, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useEffect } from 'react';
 
 interface Transaction {
   transaction_id: string;
@@ -26,6 +27,8 @@ export default function TransactionsPage() {
   const { logout } = useAuth();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   const { data: transactionsData, isLoading, error, refetch } = useQuery<{ data: Transaction[] }>({
     queryKey: ['transactions'],
@@ -35,6 +38,10 @@ export default function TransactionsPage() {
       return res.data;
     },
   });
+
+  useEffect(() => {
+  setCurrentPage(1);
+}, [transactionsData]);
 
   const { data: customersData } = useQuery<{ data: Customer[] }>({
     queryKey: ['customers'],
@@ -46,6 +53,11 @@ export default function TransactionsPage() {
   });
 
   const transactions = transactionsData?.data || [];
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedTransactions = transactions.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(transactions.length / itemsPerPage);
   const customers = customersData?.data || [];
 
   const handleLogout = () => {
@@ -177,7 +189,7 @@ export default function TransactionsPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {transactions.map((tx) => (
+                  {paginatedTransactions.map((tx) => (
                     <tr key={tx.transaction_id}>
                       <td className="px-6 py-4 text-sm text-gray-700">
                         {new Date(tx.date_transaction).toLocaleDateString('pt-BR')}<br />
@@ -212,7 +224,22 @@ export default function TransactionsPage() {
             </div>
           )}
           <div className="p-2 text-sm text-gray-500">
-            Exibindo {transactions.length} transações
+            Exibindo transações {startIndex + 1} a {Math.min(endIndex, transactions.length)} de {transactions.length}
+          </div>
+          <div className="flex justify-between items-center px-2 pb-4">
+            <Button
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}>
+              Anterior
+            </Button>
+            <span className="text-sm text-gray-600">
+              Página {currentPage} de {totalPages}
+            </span>
+            <Button
+              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+              disabled={currentPage === totalPages}>
+              Próxima
+            </Button>
           </div>
         </div>
       </main>
