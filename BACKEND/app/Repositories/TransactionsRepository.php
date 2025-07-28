@@ -25,6 +25,7 @@ class TransactionsRepository extends BaseRepository
         if (!empty($data->id)) {
             $query->where('transactions.id', $data->id);
         }
+        $query->orderBy('transactions.id', 'desc');
 
         $result = $query->find();
 

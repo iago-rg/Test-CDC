@@ -26,6 +26,7 @@ class CustomersRepository extends BaseRepository
         }
 
         $query->where('date_del', null);
+        $query->orderBy('id', 'desc');
 
         $result = $query->find();
 
