@@ -257,7 +257,7 @@ export default function CustomerPage() {
               </tbody>
             </table>
             <div className="p-4 text-sm text-gray-500">
-              Exibindo clientes {startIndex + 1} a {endIndex} de {data?.length} no total
+              Exibindo clientes {startIndex + 1} a {Math.min(endIndex, data?.length ?? 0)} de {data?.length} no total
             </div>
             <div className="flex justify-between items-center p-4">
               <Button
